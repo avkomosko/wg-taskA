@@ -1,4 +1,4 @@
-let input = '1,3,1,4,5,8,9,10,11,15,15,16,17,18,999,893,651';
+let input = '1,7,3,5,8,10,9,2,4';
 
 function solve(input) {
   let set = new Set(input.split(','));
@@ -9,7 +9,7 @@ function solve(input) {
   function findSequence(arr) {
     let sequence = [];
     for (let i = 0; i < arr.length; i++) {
-      if (arr[i] !== arr[i - 1] + 1 && arr[i] + 1 === arr[i + 1] && i !== 0) {
+      if (arr[i] !== arr[i - 1] + 1 && arr[i] + 1 === arr[i + 1]) {
         sequence.push(0);
       } else if (arr[i] === arr[i - 1] + 1 && arr[i] + 1 !== arr[i + 1]) {
         sequence.push(2);
