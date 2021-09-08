@@ -1,4 +1,4 @@
-let input = '1,7,3,5,8,10,9,2,4';
+let input = '1,3,5,8,10,9,2,4';
 
 function solve(input) {
   let set = new Set(input.split(','));
@@ -7,20 +7,15 @@ function solve(input) {
   array.sort((a,b)=> a - b);
   
   function findSequence(arr) {
-    let sequence = [];
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i] !== arr[i - 1] + 1 && arr[i] + 1 === arr[i + 1]) {
-        sequence.push(0);
-      } else if (arr[i] === arr[i - 1] + 1 && arr[i] + 1 !== arr[i + 1]) {
-        sequence.push(2);
-      } else if (arr[i] === arr[i - 1] + 1 && arr[i] + 1 === arr[i + 1]) {
-        sequence.push(1);
-      } else {
-        sequence.push(-1);
-      }
-    }
+    let sequence = arr.map((item, index) => item - index);
+     
+    // for (let i = 0; i < arr.length; i++) {
+    //   sequence.push(arr[i] - i);
+    // }
+
     return sequence;
   }
+  console.log(findSequence(array));
 
   function makeSequence(arr) {
     let arr2 = findSequence(arr);
