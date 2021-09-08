@@ -1,22 +1,19 @@
-let input = [1,3,1,4,5,8,9,10,11,12,15];
+let input = '1,3,1,4,5,8,9,10,11,15,15,16,17,18,999,893,651';
 
 function solve(input) {
-  let set = new Set(input);
-  if (set.has(',')) {
-    set.delete(',');
-  }
-
+  let set = new Set(input.split(','));
   let array = Array.from(set);
+  array = array.map(el => el = +el);
   array.sort((a,b)=> a - b);
   
   function findSequence(arr) {
-    let sequence =[];
+    let sequence = [];
     for (let i = 0; i < arr.length; i++) {
-      if (arr[i] !== arr[i-1]+1 && arr[i]+1 === arr[i+1] && i!== 0) {
+      if (arr[i] !== arr[i - 1] + 1 && arr[i] + 1 === arr[i + 1] && i !== 0) {
         sequence.push(0);
-      } else if (arr[i] === arr[i-1]+1 && arr[i]+1 !== arr[i+1]) {
+      } else if (arr[i] === arr[i - 1] + 1 && arr[i] + 1 !== arr[i + 1]) {
         sequence.push(2);
-      } else if (arr[i] === arr[i-1]+1 && arr[i]+1 === arr[i+1]){
+      } else if (arr[i] === arr[i - 1] + 1 && arr[i] + 1 === arr[i + 1]) {
         sequence.push(1);
       } else {
         sequence.push(-1);
@@ -24,7 +21,7 @@ function solve(input) {
     }
     return sequence;
   }
-  
+
   function makeSequence(arr) {
     let arr2 = findSequence(arr);
     do {
@@ -38,18 +35,20 @@ function solve(input) {
         }
       }
       if (end !== 0) {
-        arr.splice(start, end-start+1, `${arr[start]}-${arr[end]}`);
-        arr2.splice(start, end-start+1, -1);
-      } 
+        arr.splice(start, end - start + 1, `${arr[start]}-${arr[end]}`);
+        arr2.splice(start, end - start + 1, -1);
+      }
     } while (arr2.includes(0));
   }
 
-  makeSequence(array);
+  if (array.length >=3) {
+    makeSequence(array);
+  }
+  
   return array.join(',');
 }
 solve(input);
 
-const fs = require('fs')
-const input = fs.readFileSync(0,
-console.log(solve(input))
-'utf-8')
+const fs = require('fs');
+const input = fs.readFileSync(0, 'utf-8');
+console.log(solve(input));
